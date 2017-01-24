@@ -4,8 +4,6 @@ from pytmx import *
 
 pygame.init()
 
-jiggy = 3
-
 # Tile Image is 640x640
 infoObject = pygame.display.Info()
 screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.FULLSCREEN)
