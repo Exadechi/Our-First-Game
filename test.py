@@ -12,7 +12,7 @@ black = [255, 255, 255]
 fart = pygame.mixer.Sound('fart.wav')
 fart.set_volume(0.05)
 tmx_map = util_pygame.load_pygame("WizardTileEnlarged.tmx")
-tmx_ground = tmx_map.('Tile Layer 1')
+tmx_ground = tmx_map.get_layer_by_name('Tile Layer 1')
 tmx_wall = tmx_map.get_layer_by_name('Tile Layer 2')
 tmx_rects = util_pygame.build_rects(tmx_map, 'Tile Layer 2', tileset='WizardTilesEnlarged', real_gid=4)
 
