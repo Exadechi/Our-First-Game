@@ -21,7 +21,7 @@ charGroup = pygame.sprite.LayeredUpdates()
 projectileGroup = pygame.sprite.Group()
 allGroup = pygame.sprite.LayeredUpdates()
 
-#test
+#you are the biggest boi
 class Fireball(pygame.sprite.Sprite):
     speed = 0.75
     # speed = 5
