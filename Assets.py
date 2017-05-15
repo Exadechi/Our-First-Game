@@ -3,7 +3,11 @@ from pytmx import *
 
 pygame.init()
 
-#A fart sound effect
+#Gets the total width and height of the display in pixels and creates a fullscreen display
+infoObject = pygame.display.Info()
+screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.FULLSCREEN)
+
+#Loading a fart sound effect
 fart = pygame.mixer.Sound('fart.wav')
 
 wizardHorizontal = pygame.image.load('NewWizard.png')

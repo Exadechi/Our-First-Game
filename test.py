@@ -1,4 +1,4 @@
-import pygame, sys, random, os, math
+import pygame, sys, random
 from Vector import Vector
 from pytmx import *
 
@@ -16,6 +16,7 @@ tmx_ground = tmx_map.get_layer_by_name('Tile Layer 1')
 tmx_wall = tmx_map.get_layer_by_name('Tile Layer 2')
 tmx_enemy = tmx_map.get_layer_by_name('Object Layer 1')
 tmx_rects = util_pygame.build_rects(tmx_map, 'Tile Layer 2', tileset='WizardTilesEnlarged', real_gid=4)
+pygame.display.set_caption("Dungeon Crawler")
 
 charGroup = pygame.sprite.LayeredUpdates()
 allyProjectileGroup = pygame.sprite.Group()
@@ -243,7 +244,7 @@ enemy = Enemy()
 enemy.add(allGroup, charGroup)
 
 while 1:
-    clock.tick(140)
+    clock.tick(200)
     delta = clock.get_time()
     screen.fill([0, 0, 0])
     allGroup.add(allyProjectileGroup, enemyProjectileGroup)
