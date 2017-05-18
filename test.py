@@ -4,7 +4,7 @@ from pytmx import *
 
 pygame.init()
 
-# Tile Image is 640x640
+# Tile Imaged is 640x640
 infoObject = pygame.display.Info()
 screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
@@ -12,10 +12,10 @@ black = [255, 255, 255]
 fart = pygame.mixer.Sound('fart.wav')
 fart.set_volume(0.05)
 tmx_map = util_pygame.load_pygame("WizardTileEnlarged.tmx")
-tmx_ground = tmx_map.get_layer_by_name('Tile Layer 1')
-tmx_wall = tmx_map.get_layer_by_name('Tile Layer 2')
+tmx_ground = tmx_map.get_layer_by_name('Ground')
+tmx_wall = tmx_map.get_layer_by_name('Walls')
 tmx_enemy = tmx_map.get_layer_by_name('Object Layer 1')
-tmx_rects = util_pygame.build_rects(tmx_map, 'Tile Layer 2', tileset='WizardTilesEnlarged', real_gid=4)
+tmx_rects = util_pygame.build_rects(tmx_map, 'Walls', tileset='WizardTilesEnlarged', real_gid=4)
 pygame.display.set_caption("Dungeon Crawler")
 
 charGroup = pygame.sprite.LayeredUpdates()
@@ -117,7 +117,7 @@ class Wizard(pygame.sprite.Sprite):
         offsetX = 0
 
         if pygame.mouse.get_pressed()[0]:
-            if  pygame.mouse.get_pos() != (wHalf, hHalf):
+            if pygame.mouse.get_pos() != (wHalf, hHalf):
                 now = pygame.time.get_ticks()
                 if now - self.last_fireball > self.dexterity:
                     self.last_fireball = now
@@ -177,7 +177,7 @@ class Wizard(pygame.sprite.Sprite):
 
 
 class Enemy(pygame.sprite.Sprite):
-    speed = 1
+    speed = 0.5
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -268,6 +268,7 @@ while 1:
                     pygame.mixer.Sound.play(fart)
                     enemy = Enemy()
                     charGroup.add(enemy)
+                    allGroup.add(enemy)
 
     for projectile in ProjectileGroup.sprites():
        for rects in tmx_rects:
@@ -281,7 +282,7 @@ while 1:
     for x, y, image in tmx_wall.tiles():
         screen.blit(image, (x * 32 + wDrawOffset, y * 32 + hDrawOffset))
     allGroup.update(delta)
-    charGroup.update(delta)
+    # charGroup.update(delta)
 
     for sprite in allGroup:
         screen.blit(sprite.image, (sprite.rect.x + wDrawOffset, sprite.rect.y + hDrawOffset))

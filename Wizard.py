@@ -1,26 +1,24 @@
-import pygame, Assets
+import pygame
+import Assets
+from Fireball import Fireball
+
 
 class Wizard(pygame.sprite.Sprite):
-    speed = 0.25
-    horizontal = Assets.wizardHorizontal
-    upward = Assets.wizardUpward
-    downward = Assets.wizardDownward
-
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = Wizard.horizontal
-        self.imageRight = Wizard.horizontal
-        self.imageLeft = pygame.transform.flip(Wizard.horizontal, True, False)
-        self.imageUp = Wizard.upward
-        self.imageDownward = Wizard.downward
-        self.rect = self.image.get_rect(center=(100,100))
+        self.image = Assets.wizardHorizontal
+        self.imageRight = Assets.wizardHorizontal
+        self.imageLeft = pygame.transform.flip(Assets.wizardHorizontal, True, False)
+        self.imageUp = Assets.wizardUpward
+        self.imageDownward = Assets.wizardDownward
+        self.speed = 0.25
+        self.rect = self.image.get_rect(center=(100, 100))
         self._layer = 3
-        self.groups = allGroup
+        self.groups = Assets.allGroup
         self.center = self.rect.center
         self.last_fireball = 0
         self.last_animation_frame = 0
         self.dexterity = 250
-
 
     def update(self, delta):
         pygame.sprite.Sprite.update(self)
@@ -29,15 +27,14 @@ class Wizard(pygame.sprite.Sprite):
         offsetX = 0
 
         if pygame.mouse.get_pressed()[0]:
-            if  pygame.mouse.get_pos() != (wHalf, hHalf):
+            if pygame.mouse.get_pos() != (Assets.wHalf, Assets.hHalf):
                 now = pygame.time.get_ticks()
                 if now - self.last_fireball > self.dexterity:
                     self.last_fireball = now
                     (mouseX, mouseY) = pygame.mouse.get_pos()
-                    fireball = Fireball(wizard.rect.centerx, wizard.rect.centery,
-                    (mouseX - wHalf + wizard.rect.centerx, mouseY - hHalf + wizard.rect.centery))
-                    allyProjectileGroup.add(fireball)
-
+                    fireball = Fireball(self.rect.centerx, self.rect.centery, (mouseX - Assets.wHalf + self.rect.centerx, mouseY - Assets.hHalf + self.rect.centery))
+                    Assets.allyProjectileGroup.add(fireball)
+                    Assets.allGroup.add(fireball)
 
         if pygame.key.get_pressed()[pygame.K_w]:
             if pygame.key.get_pressed()[pygame.K_d]:
@@ -64,18 +61,18 @@ class Wizard(pygame.sprite.Sprite):
             pygame.transform.flip(self.image, True, False)
 
         if pygame.key.get_pressed()[pygame.K_w]:
-            offsetY -= delta * Wizard.speed
+            offsetY -= delta * self.speed
         if pygame.key.get_pressed()[pygame.K_s]:
-            offsetY += delta * Wizard.speed
+            offsetY += delta * self.speed
         if pygame.key.get_pressed()[pygame.K_d]:
-            offsetX += delta * Wizard.speed
+            offsetX += delta * self.speed
         if pygame.key.get_pressed()[pygame.K_a]:
-            offsetX -= delta * Wizard.speed
+            offsetX -= delta * self.speed
 
         oldRect = self.rect
         self.rect = self.rect.move(offsetX, offsetY)
 
-        for wall in tmx_rects:
+        for wall in Assets.tmx_rects:
             # Copy oldRect
             xRect = oldRect.move(0, 0)
             yRect = oldRect.move(0, 0)
