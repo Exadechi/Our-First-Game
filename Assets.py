@@ -16,20 +16,24 @@ wizardHorizontal = pygame.image.load('NewWizard.png')
 wizardUpward = pygame.image.load('NewWizard3.png')
 wizardDownward = pygame.image.load('NewWizard2.png')
 fireballImage = pygame.image.load('Fireball.png')
+enemyProjectileImage = pygame.image.load('EnemyProjectileSample.png')
 
 # Loading the tmxmap containing all of the tiles
-tmx_map = util_pygame.load_pygame("WizardTileEnlarged.tmx")
-
+tmx_map = util_pygame.load_pygame("WizardTileMap.tmx")
 
 # The names of the ground and wall layers
 tmx_ground_name = 'Ground'
 tmx_wall_name = 'Walls'
-tmx_tileset = 'WizardTilesEnlarged'
-tmx_wall_gid = 4
+tmx_enemy_spawns_name = 'Enemy Spawns'
+tmx_player_spawn_name = 'Player Spawn'
+tmx_tileset = 'WizardTilesetRevamped'
+tmx_wall_gid = 3
 
 # Getting both the layer containing the ground tiles you can walk on, and the wall tiles you cannot, respectively
 tmx_ground = tmx_map.get_layer_by_name(tmx_ground_name)
-tmx_wall = tmx_map.get_layer_by_name(tmx_wall_name)
+tmx_walls = tmx_map.get_layer_by_name(tmx_wall_name)
+tmx_enemy_spawns = tmx_map.get_layer_by_name(tmx_enemy_spawns_name)
+tmx_player_spawn = tmx_map.get_layer_by_name(tmx_player_spawn_name)
 
 
 # Creating the rectangles for collision with the walls
@@ -43,13 +47,8 @@ allyProjectileGroup contains friendly projectiles
 ProjectileGroup contains the enemy projectiles
 allGroup contains all sprites, for smooth rendering
 """
-charGroup = pygame.sprite.LayeredUpdates()
+enemyGroup = pygame.sprite.Group()
 allyProjectileGroup = pygame.sprite.Group()
 enemyProjectileGroup = pygame.sprite.Group()
 ProjectileGroup = pygame.sprite.Group()
 allGroup = pygame.sprite.LayeredUpdates()
-
-#class Assets():
-#    def images(self):
-
-

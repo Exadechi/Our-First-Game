@@ -1,5 +1,6 @@
 import pygame
 import Assets
+import random
 from Vector import Vector
 
 class Fireball(pygame.sprite.Sprite):
@@ -8,9 +9,10 @@ class Fireball(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Assets.fireballImage
         self.position = (wizardX, wizardY)
-        self.groups = Assets.allGroup, Assets.allyProjectileGroup, Assets.ProjectileGroup
+        self.add(Assets.allGroup, Assets.allyProjectileGroup, Assets.ProjectileGroup)
         self.speed = 0.75
         self.rect = self.image.get_rect(center=self.position)
+        self.damage = random.randrange(5, 20)
         self._layer = 2
         self.inc = Vector(mousePos[0] - wizardX, mousePos[1] - wizardY).normalized()
         self.inc_rotate = Vector(mousePos[0] - wizardX, -(mousePos[1] - wizardY)).normalized()

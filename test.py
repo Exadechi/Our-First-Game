@@ -84,7 +84,7 @@ class EnemyFireball(pygame.sprite.Sprite):
         self.now = pygame.time.get_ticks()
         #if now - self.spawn_time > self.rotate_time:
         #    self.image = pygame.transform.rotate(self.image, 10)
-        if self. now - self.spawn_time > self.fireball_lifetime:
+        if self.now - self.spawn_time > self.fireball_lifetime:
             self.kill()
 
 
