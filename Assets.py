@@ -19,7 +19,7 @@ fireballImage = pygame.image.load('Fireball.png')
 enemyProjectileImage = pygame.image.load('EnemyProjectileSample.png')
 
 # Loading the tmxmap containing all of the tiles
-tmx_map = util_pygame.load_pygame("WizardTileMap.tmx")
+tmx_map = util_pygame.load_pygame('WizardTileMap.tmx')
 
 # The names of the ground and wall layers
 tmx_ground_name = 'Ground'
@@ -27,7 +27,7 @@ tmx_wall_name = 'Walls'
 tmx_enemy_spawns_name = 'Enemy Spawns'
 tmx_player_spawn_name = 'Player Spawn'
 tmx_tileset = 'WizardTilesetRevamped'
-tmx_wall_gid = 3
+tmx_wall_gid = 8
 
 # Getting both the layer containing the ground tiles you can walk on, and the wall tiles you cannot, respectively
 tmx_ground = tmx_map.get_layer_by_name(tmx_ground_name)

@@ -1,6 +1,5 @@
 import pygame
 import Assets
-import random
 from EnemyProjectile import EnemyProjectile
 
 class Enemy(pygame.sprite.Sprite):
@@ -8,25 +7,24 @@ class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, xSpawn, ySpawn):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('GreenGoopEnemyEnlarged.png')
+        self.image = pygame.image.load('GreenGoopEnemy.png')
+        self._layer = 1
+        self.add(Assets.allGroup, Assets.enemyGroup)
+        self.jiggy = xSpawn, ySpawn
+        self.rect = self.image.get_rect(center=self.jiggy)
+        self.last_fireball = 0
+        self.dexterity = 550
+
         self.maxHealth = 100
         self.health = self.maxHealth
         self.healthbar = pygame.image.load('HealthBarEnlargedFully.png')
         self.healthbarEmpty = pygame.image.load('HealthBarEnlarged.png')
         self.healthbarRect = self.healthbar.get_rect()
         self.healthbarEmptyRect = self.healthbarEmpty.get_rect()
-        self._layer = 1
-        self.add(Assets.allGroup, Assets.enemyGroup)
-        # self.xSpawnMin = (wizardX - Assets.infoObject.current_w / 2)
-        # self.xSpawnMax = (wizardX + Assets.infoObject.current_w / 2)
-        # self.ySpawnMin = (wizardY - Assets.infoObject.current_h / 2)
-        # self.ySpawnMax = (wizardY + Assets.infoObject.current_h / 2)
-        # self.xSpawn = random.randrange(self.xSpawnMin, self.xSpawnMax)
-        # self.ySpawn = random.randrange(self.ySpawnMin, self.ySpawnMax)
-        self.jiggy = xSpawn, ySpawn
-        self.rect = self.image.get_rect(center=self.jiggy)
-        self.last_fireball = 0
-        self.dexterity = 550
+
+        self.regen = 250
+        self.regenSpeed = 1.5
+        self.last_regen = 0
 
     def update(self, delta):
         pygame.sprite.Sprite.update(self)
@@ -49,6 +47,7 @@ class Enemy(pygame.sprite.Sprite):
             self.kill()
 
         self.collisionDetection()
+        self.regenHealth()
 
 
     def shootProjectiles(self, wizardPos):
@@ -57,8 +56,8 @@ class Enemy(pygame.sprite.Sprite):
         if now - self.last_fireball > self.dexterity:
             self.last_fireball = now
             fireball = EnemyProjectile(self.rect.centerx, self.rect.centery, wizardPos, 0)
-            fireball2 = EnemyProjectile(self.rect.centerx, self.rect.centery, wizardPos, 17.5)
-            fireball3 = EnemyProjectile(self.rect.centerx, self.rect.centery, wizardPos, -17.5)
+            fireball2 = EnemyProjectile(self.rect.centerx, self.rect.centery, wizardPos, 20)
+            fireball3 = EnemyProjectile(self.rect.centerx, self.rect.centery, wizardPos, -20)
             Assets.enemyProjectileGroup.add(fireball, fireball2, fireball3)
             Assets.allGroup.add(fireball, fireball2, fireball3)
 
@@ -82,3 +81,10 @@ class Enemy(pygame.sprite.Sprite):
                 if pygame.sprite.collide_rect(allyProjectile, enemy):
                     allyProjectile.kill()
                     enemy.health -= allyProjectile.damage
+
+    def regenHealth(self):
+        now = pygame.time.get_ticks()
+        if self.health < self.maxHealth:
+            if now - self.last_regen > self.regen:
+                self.last_regen = now
+                self.health += self.regenSpeed
