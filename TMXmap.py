@@ -14,10 +14,13 @@ class TMXmap():
         self.tmxCompleteMap.append(self.tmxMapEnd)
         self.tmxRoomCount = 5
         self.tmxMapRooms = []
+        self.tmxCurrentRoomExit = None
         for i in range(self.tmxRoomCount):
             currentRoom = util_pygame.load_pygame('Room' + str(i + 1) + '.tmx')
             self.tmxMapRooms.append(currentRoom)
             self.tmxCompleteMap.append(currentRoom)
+        for x, y, image in self.tmxMapSpawn.get_layer_by_name('Room Exit').tiles():
+            self.tmxCurrentRoomExit = (x, y)
 
     def spawnPlayer(self, tmx_tilesize):
 
@@ -50,7 +53,6 @@ class TMXmap():
         Have to find a way to make it draw the ground layer of each tmx map first
         then draw the wall tiles of every tile map
         then spawn enemies
-        also find a way to create random generation, there is a room exit tile that could be used to get the x y of the last room created
         to constantly generate rooms
 
         :param screen:
@@ -65,10 +67,12 @@ class TMXmap():
         """
         screen.fill([0, 0, 0])
         self.screenArea = pygame.Rect(
-            -wDrawOffset - tmx_tilesize, 1
+            -wDrawOffset - tmx_tilesize,
             -hDrawOffset - tmx_tilesize,
             screenW + tmx_tilesize,
             screenH + tmx_tilesize)
+
+        self.tmxCurrentRoomExit = (self.tmxCurrentRoomExit[0] + tmx_tilesize, self.tmxCurrentRoomExit[1])
 
         for x, y, image in tmx_ground_layer.tiles():
 
