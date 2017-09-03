@@ -14,7 +14,7 @@ class Wizard(pygame.sprite.Sprite):
         self.speed = 0.25
         self.rect = self.image.get_rect(center=(Spawn[0], Spawn[1]))
         self._layer = 3
-        self.add(Assets.allGroup)
+        self.add(Assets.allGroup, Assets.charGroup)
         self.center = self.rect.center
         self.last_fireball = 0
         self.last_animation_frame = 0

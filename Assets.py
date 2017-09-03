@@ -17,17 +17,19 @@ wizardUpward = pygame.image.load('NewWizard3.png')
 wizardDownward = pygame.image.load('NewWizard2.png')
 fireballImage = pygame.image.load('Fireball.png')
 enemyProjectileImage = pygame.image.load('EnemyProjectileSample.png')
+lootDropImage = pygame.image.load('Chest.png')
+lootDropImageClosed = pygame.image.load('ChestClosed.png')
 
 # Loading the tmxmap containing all of the tiles
-tmx_map = util_pygame.load_pygame('WizardTileMap.tmx')
+tmx_map = util_pygame.load_pygame('SwampLands.tmx')
 
 # The names of the ground and wall layers
 tmx_ground_name = 'Ground'
 tmx_wall_name = 'Walls'
 tmx_enemy_spawns_name = 'Enemy Spawns'
 tmx_player_spawn_name = 'Player Spawn'
-tmx_tileset = 'WizardTilesetRevamped'
-tmx_wall_gid = 8
+tmx_tileset = 'SwampLandTiles'
+tmx_wall_gid = 23
 
 # Getting both the layer containing the ground tiles you can walk on, and the wall tiles you cannot, respectively
 tmx_ground = tmx_map.get_layer_by_name(tmx_ground_name)
@@ -48,7 +50,9 @@ ProjectileGroup contains the enemy projectiles
 allGroup contains all sprites, for smooth rendering
 """
 enemyGroup = pygame.sprite.Group()
+charGroup = pygame.sprite.Group()
 allyProjectileGroup = pygame.sprite.Group()
 enemyProjectileGroup = pygame.sprite.Group()
 ProjectileGroup = pygame.sprite.Group()
+lootDropGroup = pygame.sprite.Group()
 allGroup = pygame.sprite.LayeredUpdates()

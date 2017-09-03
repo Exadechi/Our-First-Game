@@ -38,10 +38,6 @@ class Fireball(pygame.sprite.Sprite):
         Need to figure out how to set image rotation's origin to the center of the image, not the top-left
         SOLVED - used a function found online
         """
-        # now = pygame.time.get_ticks()
-        # if now - self.last_rotation > self.rotationSpeed:
-        #     self.last_rotation = now
-        #     self.image = rot_center(self.image, 30)
 
         oldRect = self.rect
         self.rect = self.rect.move(offsetX, offsetY)

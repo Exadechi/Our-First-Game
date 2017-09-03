@@ -1,7 +1,6 @@
 import pygame
 import Assets
 import sys
-import random
 from Wizard import Wizard
 from Enemy import Enemy
 from pytmx import *
@@ -22,7 +21,7 @@ class Game():
         self.screen = pygame.display.set_mode((self.infoObject.current_w, self.infoObject.current_h), pygame.FULLSCREEN)
         pygame.display.set_icon(Assets.fireballImage)
 
-        #Cre
+        # Cre
         self.tmxMap = TMXmap()
 
         # Create an instance of a wizard
@@ -112,43 +111,24 @@ class Game():
         self.wDrawOffset = -wizardX + self.wHalf
         self.hDrawOffset = -wizardY + self.hHalf
 
-    def drawMap(self, screen, tmx_tilesize, tmx_ground_layer, tmx_wall_layer, screenW, screenH, wDrawOffset, hDrawOffset):
+    def drawMap(self, screen, tmx_tilesize, tmx_ground_layer, tmx_wall_layer, screenW, screenH, wDrawOffset,
+                hDrawOffset):
         """
         Draw the tile images
+
+        :param screen:
+        :param tmx_tilesize:
+        :param tmx_ground_layer:
+        :param tmx_wall_layer:
+        :param screenW:
+        :param screenH:
+        :param wDrawOffset:
+        :param hDrawOffset:
+        :return:
         """
 
-        self.tmxMap.drawMap(screen, tmx_tilesize, tmx_ground_layer, tmx_wall_layer, screenW, screenH, wDrawOffset, hDrawOffset)
-        # screen.fill([0, 0, 0])
-        # self.screenArea = pygame.Rect(
-        #     -wDrawOffset - tmx_tilesize,1
-        #     -hDrawOffset - tmx_tilesize,
-        #     screenW + tmx_tilesize,
-        #     screenH + tmx_tilesize)
-        #
-        # for x, y, image in tmx_ground_layer.tiles():
-        #
-        #     # Checking if the tile is on screen for optimization
-        #     if self.screenArea.collidepoint(x * tmx_tilesize, y * tmx_tilesize):
-        #         screen.blit(
-        #             image,
-        #             (x * tmx_tilesize + wDrawOffset,
-        #              y * tmx_tilesize + hDrawOffset)
-        #             )
-        #
-        # for x, y, image in tmx_wall_layer.tiles():
-        #
-        #     # Checking if the tile is on screen for optimization
-        #     if self.screenArea.collidepoint(x * tmx_tilesize, y * tmx_tilesize):
-        #         screen.blit(
-        #             image,
-        #             (x * tmx_tilesize + wDrawOffset,
-        #              y * tmx_tilesize + hDrawOffset)
-        #         )
-        """
-        Create a method that takes in the width and height of the screen,
-        then checks which tiles are in range of the player and only blits
-        those to reduce the currently high amount of lag
-        """
+        self.tmxMap.drawMap(screen, tmx_tilesize, tmx_ground_layer, tmx_wall_layer, screenW, screenH, wDrawOffset,
+                            hDrawOffset)
 
     def enemiesShoot(self, wizardPos):
         """
@@ -171,15 +151,15 @@ class Game():
         for sprite in allGroup:
             screen.blit(
                 sprite.image,
-               (sprite.rect.x + self.wDrawOffset,
-                sprite.rect.y + self.hDrawOffset)
+                (sprite.rect.x + self.wDrawOffset,
+                 sprite.rect.y + self.hDrawOffset)
             )
 
         screen.blit(
             self.wizard.image,
-           (self.wHalf - self.wizard.rect.width / 2,
-            self.hHalf - self.wizard.rect.height / 2)
-            )
+            (self.wHalf - self.wizard.rect.width / 2,
+             self.hHalf - self.wizard.rect.height / 2)
+        )
 
     def drawHealth(self, screen, enemyGroup, wizard):
         """
@@ -221,7 +201,7 @@ class Game():
             tmx_wall_layer_name,
             tileset=tmx_wall_layer_tileset,
             real_gid=tmx_wall_layer_gid
-            )
+        )
 
     def spawnEnemies(self, tile_size):
         """
@@ -257,7 +237,6 @@ class Game():
         SOLVED
         """
 
-    # A function to make all enemies shoot
 
 # Create the game
 game = Game()

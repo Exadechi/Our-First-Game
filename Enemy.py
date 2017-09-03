@@ -1,5 +1,7 @@
 import pygame
 import Assets
+import random
+from LootDrop import LootDrop
 from EnemyProjectile import EnemyProjectile
 
 class Enemy(pygame.sprite.Sprite):
@@ -7,7 +9,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, xSpawn, ySpawn):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('GreenGoopEnemy.png')
+        self.image = pygame.image.load('GreenGoopEnemy16X16.png')
         self._layer = 1
         self.add(Assets.allGroup, Assets.enemyGroup)
         self.jiggy = xSpawn, ySpawn
@@ -44,6 +46,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.move_ip(offsetX, offsetY)
 
         if self.health <= 0:
+            self.dropLoot()
             self.kill()
 
         self.collisionDetection()
@@ -88,3 +91,9 @@ class Enemy(pygame.sprite.Sprite):
             if now - self.last_regen > self.regen:
                 self.last_regen = now
                 self.health += self.regenSpeed
+
+    def dropLoot(self):
+        lootDrop = random.randrange(1, 6)
+        if lootDrop == 1:
+            chest = LootDrop(self.rect.centerx, self.rect.centery)
+            chest.add(Assets.allGroup, Assets.lootDropGroup)
