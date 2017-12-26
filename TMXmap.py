@@ -15,6 +15,8 @@ class TMXmap():
         self.tmxRoomCount = 5
         self.tmxMapRooms = []
         self.tmxCurrentRoomExit = None
+        currentRoomCounter = 0
+        
         for i in range(self.tmxRoomCount):
             currentRoom = util_pygame.load_pygame('Room' + str(i + 1) + '.tmx')
             self.tmxMapRooms.append(currentRoom)
@@ -34,10 +36,10 @@ class TMXmap():
                 self.wizardXSpawnMax = x
             if x < self.wizardXSpawnMin:
                 self.wizardXSpawnMin = x
-            if y > self.wizardYSpawnMax:
-                self.wizardYSpawnMax = y
             if y < self.wizardYSpawnMin:
                 self.wizardYSpawnMin = y
+            if y > self.wizardYSpawnMax:
+                self.wizardYSpawnMax = y
 
         self.wizardXSpawn = random.randrange(self.wizardXSpawnMin, self.wizardXSpawnMax) * tmx_tilesize
         self.wizardYSpawn = random.randrange(self.wizardYSpawnMin, self.wizardYSpawnMax) * tmx_tilesize
@@ -94,13 +96,14 @@ class TMXmap():
                      y * tmx_tilesize + hDrawOffset)
                 )
 
-    # def createMapRects(self, tmx_map, tmx_wall_layer_name, tmx_wall_layer_tileset, tmx_wall_layer_gid):
-    #     """
-    #     Create all the rects for the map
-    #     """
-    #     self.tmx_walls = util_pygame.build_rects(
-    #         tmx_map,
-    #         tmx_wall_layer_name,
-    #         tileset=tmx_wall_layer_tileset,
-    #         real_gid=tmx_wall_layer_gid
-    #         )
+
+    def createMapRects(self, tmx_map, tmx_wall_layer_name, tmx_wall_layer_tileset, tmx_wall_layer_gid):
+        """
+        Create all the rects for the map
+        """
+        self.tmx_walls = util_pygame.build_rects(
+            tmx_map,
+            tmx_wall_layer_name,
+            tileset=tmx_wall_layer_tileset,
+            real_gid=tmx_wall_layer_gid
+            )

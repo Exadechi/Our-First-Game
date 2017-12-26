@@ -9,7 +9,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, xSpawn, ySpawn):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('GreenGoopEnemy16X16.png')
+        self.image = Assets.enemyImage
         self._layer = 1
         self.add(Assets.allGroup, Assets.enemyGroup)
         self.jiggy = xSpawn, ySpawn

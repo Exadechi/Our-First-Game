@@ -6,7 +6,6 @@ from Enemy import Enemy
 from pytmx import *
 from TMXmap import TMXmap
 
-
 class Game():
     def __init__(self):
         # Initializing pygame

@@ -9,7 +9,7 @@ class LootDrop(pygame.sprite.Sprite):
         self.jiggy = xSpawn, ySpawn
         self.rect = self.image.get_rect(center=self.jiggy)
         self.spawn_time = pygame.time.get_ticks()
-        self.lifetime = 10000
+        self.lifetime = 10
         self.start_despawn = False
 
     def update(self, delta):
